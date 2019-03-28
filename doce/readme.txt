@@ -67,3 +67,38 @@
             spring.cloud.config.discovery.enabled=true
             #配置中心的servieId，即服务名
             spring.cloud.config.discovery.serviceId=config-server
+
+
+第八章: 消息总线(Spring Cloud Bus) (Finchley版本)
+    1、依赖: config-client 增加起步依赖spring-cloud-starter-bus-amqp
+                <dependency>
+        			<groupId>org.springframework.cloud</groupId>
+        			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        		</dependency>
+        		<dependency>
+        			<groupId>org.springframework.boot</groupId>
+        			<artifactId>spring-boot-starter-actuator</artifactId>
+        		</dependency>
+    2、配置文件:
+        #RabbitMQ配置
+        spring.rabbitmq.host=localhost
+        spring.rabbitmq.port=5672
+        spring.rabbitmq.username=guest
+        spring.rabbitmq.password=guest
+
+        #spring.cloud.bus配置
+        spring.cloud.bus.enabled=true
+        spring.cloud.bus.trace.enabled=true
+        management.endpoints.web.exposure.include=bus-refresh
+    3、@RefreshScope 起步注解
+    4、启动两个config-client服务 8981 8979
+    5、修改git仓库配置文件
+    6、发送post请求 http://localhost:8981/actuator/bus-refresh
+    7、再次调用/hi接口时发现没有进行6请求的端口的服务也得到了新的数据
+
+    注: /actuator/bus-refresh接口可以指定服务，即使用"destination"参数，
+        比如 "/actuator/bus-refresh?destination=customers:**" 即刷新服务名为customers的所有服务。
+
+    8、此时的架构为:
+        /bus/refresh请求了指定的config-client, 该config-client服务向消息总线发送消息,
+        消息总线向其他服务(本次为另一个端口的config-client)传递
