@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ZhaLC/SpringCloudConfig.git
+          search-paths: /SpringCloudConfig
+          username: ZhaLC
+          password: zlc0421
+        config:
+          label: develop
+
+server:
+  port: 8982
+
+
+
