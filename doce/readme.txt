@@ -42,3 +42,28 @@
 
     3、config-client从config-server获取了foo属性, 而config-server是从git仓库获取的.
 
+
+第七篇: 高可用的分布式配置中心(Spring Cloud Config) (Finchley版本)
+    1、将config-server和config-client都注册到服务中
+    2、config-client从config-server获取配置文件不再是配置网址, 而是服务名如下:
+        原:
+            spring.application.name=config-client
+            spring.cloud.config.label=develop
+            spring.cloud.config.profile=dev
+            #指明配置服务中心的网址
+            spring.cloud.config.uri=http://localhost:8982/
+            server.port=8981
+        新:
+            spring.application.name=config-client
+            spring.cloud.config.label=develop
+            spring.cloud.config.profile=dev
+            #指明配置服务中心的网址
+            #spring.cloud.config.uri=http://localhost:8982/   ###不再使用url访问config-server
+            server.port=8981
+
+            #下面使用服务来访问config-server
+            eureka.client.serviceUrl.defaultZone=http://localhost:8980/eureka/
+            #是从配置中心读取文件
+            spring.cloud.config.discovery.enabled=true
+            #配置中心的servieId，即服务名
+            spring.cloud.config.discovery.serviceId=config-server
