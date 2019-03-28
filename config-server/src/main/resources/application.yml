@@ -7,8 +7,8 @@ spring:
         git:
           uri: https://github.com/ZhaLC/SpringCloudConfig.git
           search-paths: /SpringCloudConfig
-          username: ZhaLC
-          password: zlc0421
+          username:
+          password:
         config:
           label: develop
 

@@ -1,0 +1,19 @@
+##下面配置不生效  只有bootstrap.properties配置文件下配置才生效
+#spring:
+#  application:
+#    name: config-client
+#spring:
+#  cloud:
+#    config:
+#      label: develop
+#spring:
+#  cloud:
+#    config:
+#      profile: dev
+##指明配置服务中心的网址
+#spring:
+#  cloud:
+#    config:
+#      uri: http://localhost:8982/
+#server:
+#  port: 8981
