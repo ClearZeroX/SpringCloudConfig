@@ -102,3 +102,6 @@
     8、此时的架构为:
         /bus/refresh请求了指定的config-client, 该config-client服务向消息总线发送消息,
         消息总线向其他服务(本次为另一个端口的config-client)传递
+
+第九篇: 服务链路追踪(Spring Cloud Sleuth) (Finchley版本)
+    代码在Spring Cloud上面 git:https://github.com/ZhaLC/SpringCloud.git develop
